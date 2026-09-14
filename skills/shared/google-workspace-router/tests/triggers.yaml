@@ -1,0 +1,48 @@
+skill: google-workspace-router
+# Real-prompt fixtures mined from agent-transcripts.
+# Real users mix typos ("checm"), Mattermost-bot phrasing ("show me calendar
+# events for this week"), and tool-discovery questions about NotebookLM.
+should_trigger:
+  - "show me calendar events for this week"
+  - "checm this weeks calendar events"
+  - "how can we improve notebooklm so we can utilize it"
+  - "What's on my calendar tomorrow?"
+  - "Send an email to alice@example.com about the rollout"  # pii:allow
+  - "List my recent Google Drive files"
+  - "Read range A1:D20 of this Sheet"
+  - "Create a Google Doc with the meeting notes"
+  - "Find a route from Bratislava to Vienna in Maps"
+  - "Generate a NotebookLM podcast from these PDFs"
+  - "Add this PDF as a source in my research notebook"
+  - "Show my unread Gmail"
+  - "schedule a meeting tomorrow with the data team"
+  - "what meetings do i have on Friday"
+  - "draft a reply to the latest email from product"
+  - "Which of my NotebookLM notebooks covers Airflow and data pipelines?"
+  - "Ask my software architecture notebook what it says about modular monoliths."
+  - "Use NotebookLM to answer this from my UX and UI sources."
+  - "List my current NotebookLM notebooks."
+  - "Ask the Thailand notebook about a Bangkok itinerary."
+should_not_trigger:
+  - "Refactor this React component"
+  - "Run the dbt models for staging"
+  - "Format this Python file"
+  - "Open a browser and click on the export button"
+  - "Find dead code in the repo"
+  - "Search my X bookmarks"
+  - "Lint my staged changes"
+  - "Connect to pi-commander over SSH"
+  - "/architect design the data model for billing"
+  - "we shoudl fix lint errors"
+  - "configure git user.email globally for this machine"
+  - "set up the OAuth client_id env var in our docker-compose"
+  - "Scan my staged files for PII before I commit"
+  - "/fill-potvrdenie next year tax form"
+  - "Search the web for the latest NotebookLM release notes."
+  - "Refactor this local Python module."
+  - "Read the attached PDF and summarize it."
+  - "Show me unread Gmail without using NotebookLM."
+  - "Calculate today's portfolio value."
+threshold:
+  min_tpr: 0.85
+  max_fpr: 0.1

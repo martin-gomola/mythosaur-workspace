@@ -1,0 +1,34 @@
+services:
+  workspace-mcp:
+    build:
+      context: .
+      dockerfile: services/mcp_server/Dockerfile
+    environment:
+      MW_MCP_AUTH_MODE: ${MW_MCP_AUTH_MODE:-oauth}
+      MW_API_KEY: ${MW_API_KEY:-}
+      MW_PROFILE: ${MW_PROFILE:-readonly}
+      MW_MCP_CLIENT_URL: ${MW_MCP_CLIENT_URL:-http://127.0.0.1:8066/mcp}
+      MW_MCP_OAUTH_STATE_FILE: ${MW_MCP_OAUTH_STATE_FILE:-/secrets/mcp-oauth-state.json}
+      MW_GOOGLE_CREDENTIALS_FILE: ${MW_GOOGLE_CREDENTIALS_FILE:-/secrets/google-credentials.json}
+      MW_GOOGLE_TOKEN_FILE: ${MW_GOOGLE_TOKEN_FILE:-/secrets/google-token.json}
+      MW_GOOGLE_CALENDAR_WRITE_ENABLED: ${MW_GOOGLE_CALENDAR_WRITE_ENABLED:-false}
+      MW_GOOGLE_GMAIL_SEND_ENABLED: ${MW_GOOGLE_GMAIL_SEND_ENABLED:-false}
+      MW_GOOGLE_DRIVE_WRITE_ENABLED: ${MW_GOOGLE_DRIVE_WRITE_ENABLED:-false}
+      MW_GOOGLE_SHEETS_WRITE_ENABLED: ${MW_GOOGLE_SHEETS_WRITE_ENABLED:-false}
+      MW_GOOGLE_DOCS_WRITE_ENABLED: ${MW_GOOGLE_DOCS_WRITE_ENABLED:-false}
+      MW_GOOGLE_PHOTOS_READ_ENABLED: ${MW_GOOGLE_PHOTOS_READ_ENABLED:-false}
+      MW_GOOGLE_PHOTOS_WRITE_ENABLED: ${MW_GOOGLE_PHOTOS_WRITE_ENABLED:-false}
+      MW_GOOGLE_MAPS_API_KEY: ${MW_GOOGLE_MAPS_API_KEY:-}
+      MW_GOOGLE_MAPS_REFERER: ${MW_GOOGLE_MAPS_REFERER:-}
+      MW_GOOGLE_MAPS_PLATFORM: ${MW_GOOGLE_MAPS_PLATFORM:-}
+      MW_NOTEBOOKLM_BIN: ${MW_NOTEBOOKLM_BIN:-nlm}
+      MW_NOTEBOOKLM_PROFILE: ${MW_NOTEBOOKLM_PROFILE:-default}
+      MW_NOTEBOOKLM_TIMEOUT: ${MW_NOTEBOOKLM_TIMEOUT:-120}
+      MW_NOTEBOOKLM_MCP_CLI_PATH: ${MW_NOTEBOOKLM_MCP_CLI_PATH:-/secrets/notebooklm}
+      MW_SHARED_ROOT: /shared
+    ports:
+      - "127.0.0.1:${MW_MCP_PORT:-8066}:8066"
+    volumes:
+      - ./secrets:/secrets
+      - ./shared:/shared
+    restart: unless-stopped

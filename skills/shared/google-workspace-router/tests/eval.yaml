@@ -1,0 +1,101 @@
+skill: google-workspace-router
+description: |
+  Cases that check the router maps Google Workspace and NotebookLM requests to
+  the correct tool, prefers reads before writes, and refuses to invent
+  unimplemented write actions.
+cases:
+  - name: schedule_request_uses_calendar_events
+    prompt: |
+      What's on my Google Calendar tomorrow?
+    rubric:
+      must_mention:
+        - "google_calendar_events"
+      must_not_mention:
+        - "google_calendar_create_event"
+      expectations:
+        - "Output picks the `google_calendar_events` read tool for a schedule
+          query rather than the create-event write tool."
+
+  - name: unread_mail_uses_gmail_unread
+    prompt: |
+      Any urgent unread emails I should look at?
+    rubric:
+      must_mention:
+        - "gmail_unread"
+      expectations:
+        - "Output starts with `gmail_unread` (or routes via action-triage which
+          ends in `gmail_unread`) rather than calling `gmail_send` directly."
+
+  - name: send_email_drafts_first_then_gmail_send
+    # pii:allow - alex@example.com is an RFC 2606 reserved test address.
+    prompt: "Send a quick email to alex@example.com letting them know I'll be late to the 3pm sync."  # pii:allow
+    rubric:
+      must_mention:
+        - "gmail_send"
+      expectations:
+        - "Output drafts the message body first (or names a drafting workflow
+          like action-triage) and only then commits to `gmail_send`. It does
+          not silently invent another mail tool."
+
+  - name: sheets_read_uses_read_range
+    prompt: |
+      Read range A1:D20 from the Q1 forecast Google Sheet.
+    rubric:
+      must_mention:
+        - "google_sheets_read_range"
+      expectations:
+        - "Output picks `google_sheets_read_range` for a read query and does not
+          call write tools like `google_sheets_write_range` or
+          `google_sheets_append_rows`."
+
+  - name: notebooklm_query_lists_first_when_unknown
+    prompt: |
+      Ask my NotebookLM what we know about prompt caching.
+    rubric:
+      must_mention:
+        - "notebooklm_list_notebooks"
+        - "notebooklm_query_notebook"
+      expectations:
+        - "Output proposes `notebooklm_list_notebooks` first (because the target
+          notebook is not identified) and only then `notebooklm_query_notebook`."
+
+  - name: drive_delete_unimplemented_says_so
+    prompt: |
+      Delete the file 'old-draft.md' from my Google Drive.
+    rubric:
+      must_not_mention:
+        - "google_drive_delete_file"
+        - "google_drive_remove"
+      expectations:
+        - "Output explicitly says deleting Drive files is not currently exposed
+          as a tool (or otherwise refuses to invent a delete action) rather
+          than guessing a tool name."
+
+  - name: known_notebook_uses_indexed_id
+    prompt: "Ask my software architecture notebook what it says about modular monoliths."
+    rubric:
+      must_mention:
+        - "notebooklm_query_notebook"
+        - "example-notebook-id"
+      must_not_mention:
+        - "notebooklm_create_notebook"
+      expectations:
+        - "Uses the indexed architecture notebook ID and sends a grounded read-only query."
+  - name: ambiguous_request_lists_before_query
+    prompt: "Which of my notebooks should I use for this question about prompts?"
+    rubric:
+      must_mention:
+        - "notebooklm_list_notebooks"
+      expectations:
+        - "Lists the live notebooks before choosing an ID and does not guess among ambiguous matches."
+  - name: missing_notebook_does_not_guess
+    prompt: "Ask my quantum-computing NotebookLM notebook about error correction."
+    rubric:
+      must_mention:
+        - "notebooklm_list_notebooks"
+      must_not_mention:
+        - "notebooklm_query_notebook"
+      expectations:
+        - "Refreshes the live list and reports that no matching notebook is available if none is returned."
+threshold:
+  pass_rate: 0.8

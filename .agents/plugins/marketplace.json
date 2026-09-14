@@ -1,0 +1,20 @@
+{
+  "name": "mythosaur-workspace",
+  "interface": {
+    "displayName": "Mythosaur Workspace"
+  },
+  "plugins": [
+    {
+      "name": "mythosaur-workspace",
+      "source": {
+        "source": "local",
+        "path": "./plugins/mythosaur-workspace"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

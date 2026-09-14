@@ -1,0 +1,21 @@
+# NotebookLM notebook index
+
+Copy this file to `notebooks.md` for a local routing cache:
+
+```sh
+cp references/notebooks.md.example references/notebooks.md
+```
+
+The local file may contain personal NotebookLM titles and IDs. Keep it
+untracked; `references/notebooks.md` is ignored by Git.
+
+Snapshot taken YYYY-MM-DD from `notebooklm_list_notebooks`, profile `PROFILE`.
+The live account returned N notebooks. Titles below are trimmed for display;
+the ID is the value to pass as `notebook_id`.
+
+| Alias | Notebook | ID | Sources | Updated | Use for |
+|---|---|---|---:|---|---|
+| example | Example notebook | `example-notebook-id` | 0 | YYYY-MM-DD | example topic |
+
+When the index is missing, stale, or ambiguous, call
+`notebooklm_list_notebooks` before querying and do not guess an ID.

@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "mythosaur-workspace": {
+      "type": "http",
+      "url": "http://127.0.0.1:8066/mcp",
+      "enabled": true,
+      "auth": "oauth",
+      "enabled_tools": [
+        "google_calendar_events",
+        "google_calendar_create_event",
+        "gmail_unread",
+        "gmail_send",
+        "google_drive_recent_files",
+        "google_drive_create_folder",
+        "google_drive_create_text_file",
+        "google_drive_upload_file",
+        "google_sheets_read_range",
+        "google_sheets_write_range",
+        "google_sheets_append_rows",
+        "google_sheets_create_sheet",
+        "google_docs_get",
+        "google_docs_create",
+        "google_photos_list_albums",
+        "google_photos_create_album",
+        "google_photos_list_media_items",
+        "google_photos_upload_file",
+        "google_photos_add_to_album",
+        "google_photos_find_duplicate_candidates",
+        "google_photos_create_curated_album",
+        "google_maps_build_route_link",
+        "google_maps_build_place_link",
+        "google_maps_search_places",
+        "google_maps_compute_route",
+        "notebooklm_auth_status",
+        "notebooklm_list_notebooks",
+        "notebooklm_query_notebook",
+        "notebooklm_create_notebook",
+        "notebooklm_list_sources",
+        "notebooklm_add_source",
+        "notebooklm_create_studio_content",
+        "notebooklm_download_artifact",
+        "notebooklm_share"
+      ]
+    }
+  }
+}

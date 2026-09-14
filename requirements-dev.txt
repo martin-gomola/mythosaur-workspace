@@ -1,0 +1,2 @@
+-r services/mcp_server/requirements.txt
+pytest==8.4.2

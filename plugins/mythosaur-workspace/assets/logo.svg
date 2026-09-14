@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Mythosaur Tools">
+  <rect width="256" height="256" rx="48" fill="#0F172A"/>
+  <path d="M54 174V82l74 44 74-44v92h-32v-38l-42 26-42-26v38z" fill="#EFF6FF"/>
+  <circle cx="128" cy="58" r="18" fill="#38BDF8"/>
+  <path d="M78 204h100" stroke="#38BDF8" stroke-width="16" stroke-linecap="round"/>
+</svg>

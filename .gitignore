@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+dist/
+.env
+secrets/
+*.pem
+*.key
+google-credentials.json
+google-token.json
+notebooklm/
+
+# Personal NotebookLM routing indexes must never enter the public repository.
+skills/shared/google-workspace-router/references/notebooks.md

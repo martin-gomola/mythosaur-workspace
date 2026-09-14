@@ -1,0 +1,38 @@
+{
+  "name": "mythosaur-workspace",
+  "version": "0.1.0+codex.20260913165156",
+  "description": "Google Workspace and NotebookLM workflows through a focused standalone MCP service.",
+  "author": {
+    "name": "Martin Gomola"
+  },
+  "repository": "https://github.com/martin-gomola/mythosaur-workspace",
+  "license": "UNLICENSED",
+  "keywords": [
+    "google-workspace",
+    "notebooklm",
+    "mcp",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Mythosaur Workspace",
+    "shortDescription": "Use Google Workspace and NotebookLM from Codex.",
+    "longDescription": "Adds focused Google Calendar, Gmail, Drive, Docs, Sheets, Photos, Maps, and NotebookLM workflows through the standalone Mythosaur Workspace MCP service.",
+    "developerName": "Martin Gomola",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/martin-gomola/mythosaur-workspace",
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/composer-icon.svg",
+    "logo": "./assets/logo.svg",
+    "defaultPrompt": [
+      "Check my upcoming Google Calendar events",
+      "Triage unread Gmail messages",
+      "Query one of my NotebookLM notebooks"
+    ]
+  }
+}
