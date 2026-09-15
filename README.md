@@ -37,19 +37,30 @@ both plugins does not register duplicate skill names.
 ## Start here
 
 You need Docker, `uv`, the Codex CLI, and a Google Cloud Desktop OAuth client.
-Copy `.env.example` to `.env`, create the OAuth client, and save its download
-as `secrets/google-credentials.json`.
-
-Then install and authenticate the local plugin:
+Follow the [Google OAuth credential setup guide](docs/setup.md#2-prepare-google-access),
+then save the downloaded JSON file as `secrets/google-credentials.json` before
+running `make install`; the command stops if this file is missing.
 
 ```bash
 cp .env.example .env
+mkdir -p secrets
+cp /path/to/downloaded-client.json secrets/google-credentials.json
+```
+
+Then install the local plugin and sign in to both Google Workspace and
+NotebookLM:
+
+```bash
 make install
+make notebooklm-login
 ```
 
 `make install` starts the loopback-only service, registers the repository
 marketplace, installs the plugin, and opens the Google consent flow. Use
 `CODEX=/path/to/codex make install` when the Codex CLI is not on `PATH`.
+`make notebooklm-login` opens the separate NotebookLM sign-in flow and stores
+its profile under `secrets/notebooklm/`. You can rerun it later to switch or
+refresh the NotebookLM account.
 
 Run the checks after installation:
 
