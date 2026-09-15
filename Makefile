@@ -7,13 +7,13 @@ CODEX ?= codex
 
 check:
 	@$(UV) run --no-project --with-requirements requirements-dev.txt python scripts/sync_plugin_skills.py --check
-	@$(UV) run --no-project --with-requirements requirements-dev.txt pytest -q tests/test_plugin.py tests/runtime/test_oauth.py tests/runtime/test_google_workspace_tools.py tests/runtime/test_notebooklm_tools.py
-	@$(UV) run --no-project --with-requirements requirements-dev.txt python tests/runtime_smoke.py
+	@$(UV) run --no-project --with-requirements requirements-dev.txt $(PYTHON) -m $(PYTEST) -q tests/test_plugin.py tests/runtime/test_oauth.py tests/runtime/test_google_workspace_tools.py tests/runtime/test_notebooklm_tools.py
+	@PYTHONPATH="$(CURDIR)" $(UV) run --no-project --with-requirements requirements-dev.txt python tests/runtime_smoke.py
 	@git diff --check
 
 test:
-	@$(UV) run --no-project --with-requirements requirements-dev.txt pytest -q tests/test_plugin.py tests/runtime/test_oauth.py tests/runtime/test_google_workspace_tools.py tests/runtime/test_notebooklm_tools.py
-	@$(UV) run --no-project --with-requirements requirements-dev.txt python tests/runtime_smoke.py
+	@$(UV) run --no-project --with-requirements requirements-dev.txt $(PYTHON) -m $(PYTEST) -q tests/test_plugin.py tests/runtime/test_oauth.py tests/runtime/test_google_workspace_tools.py tests/runtime/test_notebooklm_tools.py
+	@PYTHONPATH="$(CURDIR)" $(UV) run --no-project --with-requirements requirements-dev.txt python tests/runtime_smoke.py
 
 install: sync-plugin-skills
 	@command -v docker >/dev/null 2>&1 || { echo "Missing Docker"; exit 1; }
@@ -37,7 +37,7 @@ login:
 	set -a; [ ! -f .env ] || . ./.env; set +a; \
 	if [ "$$preset" = power ] && [ "$${MW_PROFILE:-readonly}" != power ]; then echo "Set MW_PROFILE=power and restart the service before power login"; exit 1; fi; \
 	$(CODEX) mcp logout mythosaur-workspace >/dev/null 2>&1 || true; \
-	$(CODEX) mcp login mythosaur-workspace --oauth-client-registration dcr --scopes "$$scopes"
+	$(CODEX) mcp login mythosaur-workspace --scopes "$$scopes"
 
 sync-plugin-skills:
 	@$(PYTHON) scripts/sync_plugin_skills.py

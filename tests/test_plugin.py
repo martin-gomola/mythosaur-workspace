@@ -142,7 +142,8 @@ def test_local_service_is_loopback_only_and_install_runs_login() -> None:
     makefile = (REPO_ROOT / "Makefile").read_text(encoding="utf-8")
     assert "codex mcp login" not in makefile
     assert "$(CODEX) mcp login mythosaur-workspace" in makefile
-    assert "--oauth-client-registration dcr" in makefile
+    assert '$(CODEX) mcp login mythosaur-workspace --scopes "$$scopes"' in makefile
+    assert "--oauth-client-registration" not in makefile
     assert "chmod 600 secrets/google-credentials.json" in makefile
 
 
